@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+
+PureClock --Welcome
+
+{% endblock %}
+
+{% block content %}
+    <article>
+        <header>
+            <h1>Welcome!</h1>
+            <p>PureClock is a simple time tracking sit.</p>
+        </header>
+        <section>
+            <h2>Recently Added</h2>
+            {% if new_bookmarks.count() > 0 %}
+                {% with bookmarks=new_bookmarks %}
+                    {% include "record_list_index.html" %}
+                {% endwith %}
+            {% else %}
+                No bookmarks yet.
+            {% endif %}
+        </section>
+    </article>
+{% endblock%}
