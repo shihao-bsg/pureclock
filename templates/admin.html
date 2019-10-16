@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+PureClock -- Manager
+
+{% endblock %}
+
+{% block content %}
+    <article>
+        <header>
+            <h1>Welcome! Admin</h1>
+            <p> A strong man will struggle with the storms of fate.</p>
+        </header>
+        <section>
+            <h2>Recently Added</h2>
+            {% if new_bookmarks.count() > 0 %}
+                {% with bookmarks=new_bookmarks %}
+                    {% include "record_list_admin.html" %}
+                {% endwith %}
+            {% else %}
+                No bookmarks yet.
+            {% endif %}
+        </section>
+    </article>
+{% endblock%}

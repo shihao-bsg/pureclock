@@ -61,6 +61,12 @@ def user(username):
     return render_template('user.html', user=user)
 
 
+@app.route('/admin/<username>')
+def admin(username):
+    admin = models.User.query.filter_by(username=username).first_or_404()
+    return render_template('admin.html', user=user)
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
