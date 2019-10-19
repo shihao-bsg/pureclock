@@ -1,9 +1,9 @@
 import os
 from datetime import datetime
-from flask import render_template, url_for, request, redirect, flash
+from flask import render_template, url_for, request, redirect, flash, session, abort
 from flask_login import login_required, login_user, logout_user, current_user
 
-from __init__ import app, db, login_manager
+from __init__ import app, db, login_manager, google, REDIRECT_URI
 from forms import BookmarkForm, LoginForm, SignupForm
 # from models import User, Bookmark
 import models
@@ -17,6 +17,32 @@ def load_user(userid):
 @app.route('/')
 @app.route('/index')
 def index():
+    access_token = session.get('access_token')
+    if access_token is None:
+        return redirect(url_for('login'))
+
+    access_token = access_token[0]
+    from urllib2 import Request, urlopen, URLError
+
+    headers = {'Authorization': 'OAuth '+access_token}
+    req = Request('https://www.googleapis.com/oauth2/v1/userinfo',
+                  None, headers)
+    try:
+        res = urlopen(req)
+    except URLError, e:
+        if e.code == 401:
+            # Unauthorized - bad token
+            session.pop('access_token', None)
+            return redirect(url_for('login'))
+        return res.read()
+    return render_template('index.html', new_bookmarks=models.Bookmark.newest(5))
+    #return res.read()
+
+
+
+@app.route('/o')
+@app.route('/oindex')
+def oindex():
     return render_template("index.html", new_bookmarks=models.Bookmark.newest(5))
 
 
@@ -67,6 +93,12 @@ def admin(username):
     return render_template('admin.html', user=user)
 
 
+@app.route('/userlogin')
+def userlogin():
+    callback = url_for('authorized', _external=True)
+    return google.authorize(callback=callback)
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -97,6 +129,19 @@ def signup():
         flash("Welcome, {}! Please login.".format(user.username))
         return redirect(url_for('login'))
     return render_template("signup.html", form=form)
+
+
+@app.route(REDIRECT_URI)
+@google.authorized_handler
+def authorized(resp):
+    access_token = resp['access_token']
+    session['access_token'] = access_token, ''
+    return redirect(url_for('index'))
+
+
+@google.tokengetter
+def get_access_token():
+    return session.get('access_token')
 
 
 @app.errorhandler(404)
