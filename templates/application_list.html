@@ -1,0 +1,18 @@
+<ul class="bookmarks">
+    {% for application in Applications %}
+        <li>
+
+                <h3 class="description">
+                    {{ application.username|truncate(50, killwords=True) }}
+                </h3>
+                <span class="url">
+                    {{ application.email|truncate(50, killwords=True) }}
+                </span>
+            <div class="info">
+                    <span class="editlinks">
+                        <a href="{{ url_for('approve', application_id=application.id) }}">approve</a>
+                    </span>
+            </div>
+        </li>
+    {% endfor %}
+</ul>

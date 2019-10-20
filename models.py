@@ -27,25 +27,40 @@ class Bookmark(db.Model):
 
 
 class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True)
+    email = db.Column(db.String(120), unique=True)
+    authority = db.Column(db.Integer, nullable=False)
+    bookmarks = db.relationship('Bookmark', backref='user', lazy='dynamic')
+    password_hash = db.Column(db.String)
+
+
+    @property
+    def password(self):
+        raise AttributeError('password: write-only field')
+
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+            return check_password_hash(self.password_hash, password)
+
+    @staticmethod
+    def get_by_username(username):
+        return User.query.filter_by(username=username).first()
+
+    @staticmethod
+    def get_by_email(email):
+        return User.query.filter_by(email=email).first()
+    def __repr__(self):
+		return '<User %r>'% self.username
+
+
+class Users(db.Model, UserMixin):
+	verified = db.Column(db.Integer)
 	id = db.Column(db.Integer, primary_key=True)
 	username = db.Column(db.String(80), unique=True)
 	email = db.Column(db.String(120), unique=True)
-	bookmarks = db.relationship('Bookmark', backref='user', lazy='dynamic')
-	password_hash = db.Column(db.String)
-	@property
-	def password(self):
-		raise AttributeError('password: write-only field')
+	#bookmarks = db.relationship('Bookmark', backref='user', lazy='dynamic')
 
-	@password.setter
-	def password(self, password):
-		self.password_hash = generate_password_hash(password)
-
-	def check_password(self, password):
-		return check_password_hash(self.password_hash, password)
-
-	@staticmethod
-	def get_by_username(username):
-		return User.query.filter_by(username=username).first()
-
-	def __repr__(self):
-		return '<User %r>'% self.username

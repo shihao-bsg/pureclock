@@ -39,6 +39,6 @@ import models
 import views
 
 app.config['SECRET_KEY'] = '\xeeJ\x01\xb7\xfa\xa4\xc8\xd32\x929\xd6XX#\xbd\x03\xcb\xeaf\x9d\x03\xcdN'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+os.path.join(basedir, 'thermos.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+os.path.join(basedir, 'pureclock.db')
 app.config['DEBUG'] = True
 

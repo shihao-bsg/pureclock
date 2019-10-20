@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% from "form_macros.html" import render_field %}
+
+{% block title %}
+
+PureClock --Welcome
+
+{% endblock %}
+
+{% block content %}
+    <article>
+        <header>
+            <h1>Welcome!</h1>
+            <p>Please set your username for register</p>
+        </header>
+        <section>
+            <form action="" method="post">
+            {{form.hidden_tag()}}
+                <table>
+                    {{ render_field(form.username,size=50) }}
+                    {{ render_field(form.password,size=50) }}
+                    {{ render_field(form.password2,size=50) }}
+                    {{ render_field(form.submit) }}
+                </table>
+            </form>
+        </section>
+    </article>
+{% endblock%}

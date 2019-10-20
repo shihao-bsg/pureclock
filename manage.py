@@ -11,8 +11,8 @@ manager.add_command('db', MigrateCommand)
 @manager.command
 def initdb():
 	db.create_all()
-	db.session.add(User(username='shihao', email='shihao@test.com', password='shihao'))
-	db.session.add(User(username='test', email='test@test.com', password='test'))
+	db.session.add(User(username='shihao', email='shihao@test.com', password='shihao', authority=2))
+	db.session.add(User(username='test', email='test@test.com', password='test', authority=2))
 	db.session.commit()
 	print 'Iinitialized the database'
 
