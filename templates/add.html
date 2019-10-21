@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% from "form_macros.html" import render_field, render_datefield %}
+
+{% block title %}
+
+PureClock --Add a Record
+
+{% endblock %}
+
+{% block content %}
+	<section>
+		<h1>Add a new Record</h1>
+		<form action="" method="post">
+			{{ form.hidden_tag() }}
+			<table>
+				{{ render_field(form.task,size=50) }}
+				{{ render_field(form.company,size=50) }}
+                {{ render_datefield(form.workdate,size=50) }}
+                {{ render_field(form.time,size=50) }}
+                {{ render_field(form.description,size=50) }}
+				<tr class="submit">
+					<td></td>				
+					<td><button type="submit">Submit</button></td>
+				</tr>
+			</table>
+		</form>
+	</section>
+{% endblock%}
+
+{% block sidebar %}
+{% endblock %}

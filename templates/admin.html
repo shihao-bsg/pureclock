@@ -25,7 +25,10 @@ PureClock -- Manager
 					<li>
 						 <a href="#panel-533609" data-toggle="tab">User's Application</a>
 					</li>
-				</ul>
+					<li>
+						 <a href="#panel-655510" data-toggle="tab">User's information</a>
+					</li>
+                </ul>
 				<div class="tab-content">
 					<div class="tab-pane active" id="panel-781750">
                         <section>
@@ -48,6 +51,18 @@ PureClock -- Manager
                                 {% endwith %}
                             {% else %}
                                 No Application yet.
+                            {% endif %}
+                        </section>
+					</div>
+                    <div class="tab-pane" id="panel-655510">
+                        <section>
+                            <h3>User's information</h3>
+                            {% if allusers.count() > 0 %}
+                                {% with Allusers=allusers %}
+                                    {% include "users_list.html" %}
+                                {% endwith %}
+                            {% else %}
+                                No User yet.
                             {% endif %}
                         </section>
 					</div>

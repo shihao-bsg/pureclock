@@ -2,19 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="200bea6b-a5b6-4fbc-9f84-a396130fac6f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/application_list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/verifing2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sheet-01dbb67d486d.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/add.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/users_list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tools.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pureclock.db" beforeDir="false" afterPath="$PROJECT_DIR$/pureclock.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thermos.db" beforeDir="false" afterPath="$PROJECT_DIR$/thermos.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/record_list_user.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/record_list_user.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -67,16 +64,17 @@
   <component name="ProjectId" id="1Rz5qH0zyHDdWobe5qDZmhy68w1" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\howar\PycharmProjects\pureclock1\templates" />
       <recent name="C:\Users\howar\PycharmProjects\pureclock1" />
+      <recent name="C:\Users\howar\PycharmProjects\pureclock1\templates" />
       <recent name="C:\Users\howar\PycharmProjects\pureclock1\static" />
     </key>
   </component>
@@ -147,7 +145,7 @@
       <workItem from="1571494484245" duration="17517000" />
       <workItem from="1571524963379" duration="7411000" />
       <workItem from="1571533645850" duration="915000" />
-      <workItem from="1571583611762" duration="1835000" />
+      <workItem from="1571583611762" duration="9203000" />
     </task>
     <servers />
   </component>

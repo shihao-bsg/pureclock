@@ -1,0 +1,13 @@
+<ul class="bookmarks">
+    {% for A in Allusers %}
+        <li>
+                <h3 class="description">
+                   <a href="{{ url_for('sheets', username=A.username) }}">
+                    {{ A.username|truncate(50, killwords=True) }}</a>
+                </h3>
+                <span class="url">
+                    {{ A.email|truncate(50, killwords=True) }}
+                </span>
+        </li>
+    {% endfor %}
+</ul>

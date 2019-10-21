@@ -8,10 +8,18 @@ from forms import BookmarkForm, LoginForm, SignupForm, SetUsernameForm
 #from models import User, Bookmark
 import models
 import json
+from tools import import_data
+
+@app.route('/sheets/<username>')
+def sheets(username):
+    u = models.User.query.filter_by(username=username).first()
+    import_data(u)
+    return redirect('https://docs.google.com/spreadsheets/d/1M_DSqPghGoCGUzn8dciDoXeHW0lAHoDk0i90G913A5U/edit#gid=0')
 
 @login_manager.user_loader
 def load_user(userid):
     return models.User.query.get(int(userid))
+
 
 def helper(access_token):
     access_token = session.get('access_token')
@@ -113,8 +121,10 @@ def approve(application_id):
     application.authority=1
     db.session.commit()
     applications = models.User.query.filter_by(authority=0)
+    allusers = models.User.query.filter_by(authority=1)
     flash("'{}' is approved".format(application.username))
-    return redirect(url_for('admin', user=current_user,applications=applications,new_bookmarks=models.Bookmark.newest(10)))
+    return redirect(url_for('admin', user=current_user, applications=applications,
+                                     new_bookmarks=models.Bookmark.newest(10), allusers=allusers))
 
 
 @app.route('/user/<username>')
@@ -127,7 +137,8 @@ def user(username):
 def admin(user):
     #admin = models.User.query.filter_by(username=username).first_or_404()
     applications = models.User.query.filter_by(authority=0)
-    return render_template('admin.html', user=user, applications=applications,new_bookmarks=models.Bookmark.newest(10))
+    allusers = models.User.query.filter_by(authority=1)
+    return render_template('admin.html', user=user, applications=applications,new_bookmarks=models.Bookmark.newest(10),allusers=allusers)
 
 
 @app.route('/userlogin')
@@ -144,13 +155,17 @@ def login():
         # login and validate the user...
         user = models.User.get_by_username(form.username.data)
         applications = models.User.query.filter_by(authority=0)
+        allusers = models.User.query.filter_by(authority=1)
         if user is not None and user.check_password(form.password.data):
             login_user(user, form.remember_me.data)
             flash("logged in successfully as {}".format(user.username))
             if user.authority == 2:
-                return redirect(request.args.get('next') or url_for('admin', user=user, applications=applications,new_bookmarks=models.Bookmark.newest(10)))
+                return redirect(request.args.get('next') or url_for('admin', user=user,
+                                                                             applications=applications,
+                                                                             new_bookmarks=models.Bookmark.newest(10),
+                                                                             allusers=allusers))
             if user.authority == 1:
-                return redirect(url_for('user', username=user.username))
+                return redirect(url_for('user', user=user))
         flash('Incorrect username or password.')
     return render_template("login.html", form=form)
 
@@ -161,17 +176,6 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-
-@app.route("/signup", methods=["GET", "POST"])
-def signup():
-    form = SignupForm()
-    if form.validate_on_submit():
-        user = models.User(email=form.email.data, username=form.username.data, password=form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        flash("Welcome, {}! Please login.".format(user.username))
-        return redirect(url_for('login'))
-    return render_template("signup.html", form=form)
 
 @app.route('/accessverify/<email>', methods=['GET', 'POST'])
 def accessVerify(email):
@@ -193,12 +197,14 @@ def authorized(resp):
     #flash("logged in successfully as {}".format(user.username))
     #return redirect(request.args.get('next') or url_for('user', username=user.username))
     user=models.User.get_by_email(e)
-    login_user(user)
+
     if not user:
         return redirect(url_for('accessVerify', email=e))
-    elif user.authority==1:
+    elif user.authority == 1:
+        login_user(user)
         return redirect(request.args.get('next') or url_for('user', username=user.username))
     else:
+        login_user(user)
         return render_template('verifing2.html')
 
 @google.tokengetter

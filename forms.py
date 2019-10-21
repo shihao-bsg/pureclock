@@ -28,7 +28,7 @@ class BookmarkForm(Form):
 class LoginForm(Form):
 	username = StringField('Your Username:', validators=[DataRequired()])
 	password = PasswordField('Password:', validators=[DataRequired()])
-	remember_me = BooleanField('Keep me logged in')
+	remember_me = BooleanField('Keep logged in')
 	submit = SubmitField('log In')
 
 
